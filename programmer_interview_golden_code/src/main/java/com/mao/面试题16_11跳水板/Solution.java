@@ -11,4 +11,38 @@ package com.mao.面试题16_11跳水板;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class Solution {
+
+
+    /**
+     * 就是用循环遍历
+     * @param shorter
+     * @param longer
+     * @param k
+     * @return
+     */
+    public int[] divingBoard(int shorter, int longer, int k) {
+
+        int i = 0;
+
+        int[] res;
+
+        if (k == 0) {
+            res = new int[0];
+            return res;
+        }
+
+        if (shorter == longer) {
+            res = new int[]{shorter * k};
+            return res;
+        }
+
+        res = new int[k + 1];
+
+        while (i <= k) {
+            res[i] = shorter * (k - i) + longer * (i);
+            i++;
+        }
+
+        return res;
+    }
 }
