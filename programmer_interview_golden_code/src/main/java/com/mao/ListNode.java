@@ -1,6 +1,7 @@
 package com.mao;
 
 
+import java.lang.reflect.Proxy;
 import java.sql.DriverManager;
 
 /**
@@ -17,10 +18,12 @@ public class ListNode {
 //
 //        try {
 //            Class.forName("com.mysql.jdbc.Driver");
-//            DriverManager.getConnection()
+////            DriverManager.getConnection();
 //        } catch (ClassNotFoundException e) {
 //            e.printStackTrace();
 //        }
+//
+//        Proxy.newProxyInstance()
 //
 //    }
 }
