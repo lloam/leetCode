@@ -37,7 +37,29 @@ public class RedixSort {
         int maxCount = (max + "").length();
         // 排序
         for (int i = 0; i < maxCount; i++) {
-            
+
+            // 将元素放入桶中
+            for (int j = 0; j < num.length; j++) {
+                // 确定该元素存入桶的序号
+                int bucketIndex = num[j] / (int) Math.pow(10, i) % 10;
+                bucket[bucketIndex][bucketElementCounts[bucketIndex]] = num[j];
+                // 桶元素值 + 1
+                bucketElementCounts[bucketIndex]++;
+            }
+
+            // 定义数组下标
+            int index = 0;
+            // 将元素从每一个桶中取出
+            for (int j = 0; j < bucketElementCounts.length; j++) {
+                // 将元素从当前的桶中取出，第 j 个桶
+                for (int k = 0; k < bucketElementCounts[j]; k++) {
+                    // 第 j 个桶的第 k 个元素
+                    num[index] = bucket[j][k];
+                    index++;
+                }
+                // 取完当前桶，当前桶的元素个数要清零
+                bucketElementCounts[j] = 0;
+            }
         }
     }
 }
