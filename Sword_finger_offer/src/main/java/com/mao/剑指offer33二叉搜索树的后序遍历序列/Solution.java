@@ -55,35 +55,100 @@ public class Solution {
 //        return p == j && recur(postorder,i,m - 1) && recur(postorder,m,j-1);
 //    }
 
-    /****************************辅助单调栈******************************/
+//    /****************************辅助单调栈******************************/
+//    /**
+//     * 辅助单调栈
+//     * 将后续遍历倒转过来，也就是 根 右 左
+//     * 那么就是                 中 大 小
+//     * 我们可以采用单调栈，只要遍历的数比前一个大，那他一定就是一个右节点，
+//     * 第一个数一定是根节点，那么就能遍历出右边的一条链，当遇到第一个比前一个数小的数时，
+//     * 此时就是要将这个左节点的兄弟与父节点都出栈，因为这个节点是三个节点中最小的，
+//     * 所以就能将与这个节点相关的所有节点判断完毕，假设在此期间左节点进栈的时候大于了此时
+//     * 的root父节点，那么就不是二叉搜索树
+//     * @param postorder
+//     * @return
+//     */
+//    public boolean verifyPostorder(int[] postorder) {
+//        Stack<Integer> stack = new Stack();
+//        // 先将所有节点都定义为 int 类型最大值的左节点
+//        int root = Integer.MAX_VALUE;
+//        // 倒序遍历
+//        for (int i = postorder.length - 1; i >= 0; i--){
+//            // 此时不会有一个 左节点 存在于栈中（相对来说）
+//            if(postorder[i] > root) return false;
+//            // 如果遇到一个比栈顶元素小的元素，那么就是某个的左节点，需要将与这个左节点相关的节点都移除栈,也就是说栈一定要递增,找出这个节点的父节点
+//            while (!stack.isEmpty() && stack.peek() > postorder[i]){
+//                root = stack.pop();
+//            }
+//            stack.add(postorder[i]);
+//        }
+//        return true;
+//    }
+
+//    /**
+//     * 使用递归方法
+//     * 后序遍历：左右根
+//     * @param postorder
+//     * @return
+//     */
+//    public boolean verifyPostorder(int[] postorder) {
+//
+//        return recur(postorder, 0, postorder.length - 1);
+//
+//    }
+//
+//    /**
+//     *
+//     * @param postorder
+//     * @param i
+//     * @param root
+//     * @return
+//     */
+//    private boolean recur(int[] postorder, int i, int root) {
+//
+//        if (i >= root) return true;
+//
+//        // i 是左子树的第一个节点
+//        int p = i;
+//
+//        // i 之后很多个左子树节点，当遇到右子树节点的时候，循环结束
+//        while (postorder[p] < postorder[root]) p++;
+//
+//        // 此时 p 是右子树第一个节点
+//
+//        int m = p;
+//
+//        // 继续循环，得到右子树的最后一个节点
+//        while (postorder[p] > postorder[root]) p++;
+//
+//        // 此时 p 是根节点
+//
+//        return p == root && recur(postorder, i, m - 1) && recur(postorder, m, p - 1);
+//    }
+
     /**
-     * 辅助单调栈
-     * 将后续遍历倒转过来，也就是 根 右 左
-     * 那么就是                 中 大 小
-     * 我们可以采用单调栈，只要遍历的数比前一个大，那他一定就是一个右节点，
-     * 第一个数一定是根节点，那么就能遍历出右边的一条链，当遇到第一个比前一个数小的数时，
-     * 此时就是要将这个左节点的兄弟与父节点都出栈，因为这个节点是三个节点中最小的，
-     * 所以就能将与这个节点相关的所有节点判断完毕，假设在此期间左节点进栈的时候大于了此时
-     * 的root父节点，那么就不是二叉搜索树
+     * 辅助栈
      * @param postorder
      * @return
      */
-    public boolean verifyPostorder(int[] postorder){
-        Stack<Integer> stack = new Stack();
-        // 先将所有节点都定义为 int 类型最大值的左节点
+    public boolean verifyPostorder(int[] postorder) {
+
+        Stack<Integer> stack = new Stack<>();
+
         int root = Integer.MAX_VALUE;
-        // 倒序遍历
-        for (int i = postorder.length - 1; i >= 0; i--){
-            // 此时不会有一个 左节点 存在于栈中（相对来说）
-            if(postorder[i] > root) return false;
-            // 如果遇到一个比栈顶元素小的元素，那么就是某个的左节点，需要将与这个左节点相关的节点都移除栈,也就是说栈一定要递增,找出这个节点的父节点
-            while (!stack.isEmpty() && stack.peek() > postorder[i]){
+
+        for (int i = postorder.length - 1; i >= 0; i--) {
+
+            if (postorder[i] > root) return false;
+
+            while (!stack.isEmpty() && stack.peek() > postorder[i]) {
                 root = stack.pop();
             }
+
             stack.add(postorder[i]);
+
         }
+
         return true;
     }
-
-
 }
