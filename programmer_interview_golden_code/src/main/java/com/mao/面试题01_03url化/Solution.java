@@ -34,6 +34,7 @@ public class Solution {
             // 如果是空格就替换 20%
             if (chars[i] == ' ') {
 
+                
                 chars[index--] = '0';
                 chars[index--] = '2';
                 chars[index--] = '%';
