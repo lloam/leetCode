@@ -11,25 +11,54 @@ package com.mao.剑指offer44数字序列中某一位的数字;
  */
 public class Solution {
 
+//    /**
+//     * 其实就是找规律
+//     * 具体看 k 神
+//     * @param n
+//     * @return
+//     */
+//    public int findNthDigit(int n) {
+//        int digit = 1;
+//        long start = 1, count = 9;
+//        // 找到 n 所在数字的位数
+//        while (n > 9) {
+//            n -= count;
+//            start = start * 10;
+//            digit++;
+//            count = 9 * digit * start;
+//        }
+//        // 找到 n 所在的数字
+//        long num = start + (n - 1) / digit;
+//        // 确定 n 是所在数字的第几位
+//        return Long.toString(num).charAt((n - 1) % digit) - '0';
+//    }
+
     /**
-     * 其实就是找规律
-     * 具体看 k 神
+     *
      * @param n
      * @return
      */
     public int findNthDigit(int n) {
+        // 第 n 为数字位于的数字的位数，如 12 是一个 2 位数
         int digit = 1;
-        long start = 1, count = 9;
-        // 找到 n 所在数字的位数
-        while (n > 9) {
+
+        // 当前位数的开始的数字，如 2 位数开始数字是 10
+        long start = 1;
+
+        // 当前位数所含有的数字，如 344 含有 3 个数字
+        long count = 9;
+
+        while (n > count) {
             n -= count;
             start = start * 10;
             digit++;
-            count = 9 * digit * start;
+            count = start * digit * 9;
         }
+
         // 找到 n 所在的数字
-        long num = start + (n - 1) / digit;
-        // 确定 n 是所在数字的第几位
+        long num = start +  (n - 1) / digit;
+
+        // 找到 n 所在数字的第几位
         return Long.toString(num).charAt((n - 1) % digit) - '0';
     }
 }
