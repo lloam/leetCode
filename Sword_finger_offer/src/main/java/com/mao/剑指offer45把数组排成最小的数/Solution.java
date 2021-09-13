@@ -58,23 +58,88 @@ public class Solution {
 //        quickSort(str,i+1,end);
 //    }
 
+//    public static String minNumber(int[] nums) {
+//        // 使用小根堆
+//        Queue<String> queue = new PriorityQueue<>(new Comparator<String>() {
+//            @Override
+//            public int compare(String o1, String o2) {
+//                return (o1 + o2).compareTo(o2 + o1);
+//            }
+//        });
+//        for (int num : nums) {
+//            queue.add("" + num);
+//        }
+//        StringBuilder stringBuilder = new StringBuilder();
+//        while (!queue.isEmpty()) {
+//            stringBuilder.append(queue.poll());
+//        }
+//        return stringBuilder.toString();
+//    }
+
+
+//    /**
+//     * 如果 x + y > y + x，那么可以认为 x > y，那么根据排序 x 要排在 y 的后面
+//     * 这样得到的数字就是最小的
+//     * 也就是对数组根据这个思想排序
+//     * 排序呢可以使用快速排序
+//     * @param nums
+//     * @return
+//     */
+//    public static String minNumber(int[] nums) {
+//        quickSort(nums, 0, nums.length - 1);
+//        StringBuilder builder = new StringBuilder();
+//        for (int i : nums) {
+//            builder.append(i);
+//        }
+//        return builder.toString();
+//    }
+
+    /**
+     * 小根堆
+     * @param nums
+     * @return
+     */
     public static String minNumber(int[] nums) {
-        // 使用小根堆
-        Queue<String> queue = new PriorityQueue<>(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return (o1 + o2).compareTo(o2 + o1);
-            }
+        PriorityQueue<String> priorityQueue = new PriorityQueue<String>((o1, o2) -> {
+            return (o1 + o2).compareTo(o2+o1);
         });
         for (int num : nums) {
-            queue.add("" + num);
+            priorityQueue.add(num + "");
         }
-        StringBuilder stringBuilder = new StringBuilder();
-        while (!queue.isEmpty()) {
-            stringBuilder.append(queue.poll());
+        StringBuilder builder = new StringBuilder();
+        while (!priorityQueue.isEmpty()) {
+            builder.append(priorityQueue.poll());
         }
-        return stringBuilder.toString();
+        return builder.toString();
     }
+
+//    /**
+//     * 快速排序
+//     * @param nums
+//     * @param left
+//     * @param right
+//     */
+//    private static void quickSort(int[] nums, int left, int right) {
+//        if (left >= right) return;
+//        int l = left;
+//        int r = right;
+//
+//        while (l < r) {
+//            while (l < r && (nums[r] + "" + nums[left]).compareTo(nums[left] + "" + nums[r]) >= 0) r--;
+//            while (l < r && (nums[l] + "" + nums[left]).compareTo(nums[left] + "" + nums[l]) <= 0) l++;
+//            if (l == r) {
+//                int temp = nums[left];
+//                nums[left] = nums[l];
+//                nums[l] = temp;
+//            }else {
+//                int temp = nums[l];
+//                nums[l] = nums[r];
+//                nums[r] = temp;
+//            }
+//        }
+//        quickSort(nums, left, l - 1);
+//        quickSort(nums, r + 1, right);
+//    }
     public static void main(String[] args) {
         int[] nums = new int[]{3,30,34,5,9};
         System.out.println(minNumber(nums));
