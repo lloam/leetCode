@@ -21,14 +21,19 @@ public class Solution {
      * @return
      */
     public char firstUniqChar(String s) {
-        Map<Character,Boolean> map = new HashMap<>();
-        for (char c : s.toCharArray()) {
-            map.put(c,!map.containsKey(c));
+        Map<Character, Boolean> map = new HashMap<>();
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            map.put(chars[i], !map.containsKey(chars[i]));
         }
-        // 接着遍历 map 的元素，如果 value 为 true，就返回
-        for (char c : s.toCharArray()) {
-            if(map.get(c)) return c;
+        for (char aChar : chars) {
+            if (map.get(aChar)) return aChar;
         }
         return ' ';
+    }
+
+    public static void main(String[] args) {
+        char c = new Solution().firstUniqChar("leetcode");
+        System.out.println(c);
     }
 }
