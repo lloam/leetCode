@@ -20,19 +20,10 @@ public class GetIntersectionNode {
     }
 
     public static ListNode getIntersectionNode(ListNode headA, ListNode headB){
-        ListNode nodeA = headA;
-        ListNode nodeB = headB;
-        while (nodeA != nodeB){
-            if(nodeA != null){
-                nodeA = nodeA.next;
-            }else {
-                nodeA = headB;
-            }
-            if(nodeB != null){
-                nodeB = nodeB.next;
-            }else {
-                nodeB = headA;
-            }
+        ListNode nodeA = headA, nodeB = headB;
+        while (nodeA != nodeB) {
+            nodeA = nodeA != null ? nodeA.next : headB;
+            nodeB = nodeB != null ? nodeB.next : headA;
         }
         return nodeA;
     }
