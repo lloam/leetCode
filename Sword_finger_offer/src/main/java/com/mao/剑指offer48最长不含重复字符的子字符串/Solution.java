@@ -1,7 +1,9 @@
 package com.mao.剑指offer48最长不含重复字符的子字符串;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Author: Administrator
@@ -26,7 +28,7 @@ public class Solution {
 //        int res = 0, temp = 0;
 //
 //        // 遍历字符串的字符
-//        for (int j = 0; j < s.length(); j++) {
+//            for (int j = 0; j < s.length(); j++) {
 //            // 判断此时字典中是否包含该字符，包含就返回索引下标，不包含就返回 -1
 //            Integer i = dic.getOrDefault(s.charAt(j), -1);
 //
@@ -39,31 +41,46 @@ public class Solution {
 //            // 比较此时最长的字符长度
 //            res = Math.max(res, temp);
 //        }
-//        return res;
+//            return res;
 //    }
+
+
 //    public int lengthOfLongestSubstring(String s) {
 //        int res = 0, temp = 0;
 //
-//        for (int j = 0; j < s.length(); j++) {
+//            for (int j = 0; j < s.length(); j++) {
 //            int i = j - 1;
 //            while (i >= 0 && s.charAt(i) != s.charAt(j)) i--;
 //            temp = temp < j - i ? temp + 1 : j - i;
 //            res = Math.max(res, temp);
 //        }
-//        return res;
+//            return res;
 //    }
-    public int lengthOfLongestSubstring(String s) {
-        Map<Character,Integer> dic = new HashMap<>();
-        int res = 0, i = -1;
 
+    public int lengthOfLongestSubstring(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        int maxLength = 0, i = -1;
         for (int j = 0; j < s.length(); j++) {
-            if(dic.containsKey(s.charAt(j))) {
-                i = Math.max(i, dic.get(s.charAt(j)));
-            }
-            dic.put(s.charAt(j), j);
-            res = Math.max(res, j - i);
+            if (map.containsKey(s.charAt(j))) i = Math.max(i, map.get(s.charAt(j)));
+            map.put(s.charAt(j), j);
+            maxLength = Math.max(maxLength, j - i);
         }
-        return res;
+        return maxLength;
+    }
+    //        Map<Character,Integer> dic = new HashMap<>();
+//        int res = 0, i = -1;
+//
+//        for (int j = 0; j < s.length(); j++) {
+//            if(dic.containsKey(s.charAt(j))) {
+//                i = Math.max(i, dic.get(s.charAt(j)));
+//            }
+//            dic.put(s.charAt(j), j);
+//            res = Math.max(res, j - i);
+//        }
+//        return res;
+    public static void main(String[] args) {
+        int maxLength = new Solution().lengthOfLongestSubstring(" ");
+        System.out.println(maxLength);
     }
 
 }
