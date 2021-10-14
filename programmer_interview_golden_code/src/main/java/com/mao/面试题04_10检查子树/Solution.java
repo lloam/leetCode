@@ -44,6 +44,7 @@ public class Solution {
 //    }
 
     /**
+     *
      * 方法二：先进行先序遍历得到两颗树的先序遍历，在转化为字符串，判断是否包含
      * @param t1
      * @param t2
